@@ -5,6 +5,8 @@ DEBUG = True
 LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
 
 logging.basicConfig()
-log = logging.getLogger(__name__)
-log.setLevel(LOG_LEVEL)
 
+def log_init(name):
+  log = logging.getLogger(name)
+  log.setLevel(LOG_LEVEL)
+  return log

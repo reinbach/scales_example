@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Tools for pushing stat values to graphite."""
+"""Tools for pushing stat values."""
 
 from greplin import scales
 
@@ -20,14 +20,15 @@ import os
 import time
 from fnmatch import fnmatch
 
-from config import log
+from config import log_init
+log = log_init(__name__)
 
 class Pusher(object):
-  """A class that pushes all stat values to Graphite on-demand."""
+  """A class that pushes all stat values on-demand."""
 
   def __init__(self, host, port, prefix):
-    """If prefix is given, it will be prepended to all Graphite
-    stats. If it is not given, then a prefix will be derived from the
+    """If prefix is given, it will be prepended to all stats.
+    If it is not given, then a prefix will be derived from the
     hostname."""
     self.rules = []
     self.pruneRules = []
@@ -43,7 +44,7 @@ class Pusher(object):
 
 
   def _sanitize(self, name):
-    """Sanitize a name for graphite."""
+    """Sanitize a name."""
     return name.strip().replace(' ', '-').replace('.', '-')
 
 
@@ -84,14 +85,11 @@ class Pusher(object):
 
 
   def push(self, statsDict=None, prefix=None, path=None):
-    """Push stat values out to Graphite."""
+    """Push stat values out."""
     if statsDict is None:
       statsDict = scales.getStats()
     prefix = prefix or self.prefix
     path = path or '/'
-
-    #test
-    log.info("stats: %s\n" % statsDict)
 
     for name, value in statsDict.items():
       name = str(name)
@@ -108,12 +106,12 @@ class Pusher(object):
             value = value()
           except:                       # pylint: disable=W0702
             value = None
-            log.exception('Error when calling stat function for graphite push')
+            log.exception('Error when calling stat function for push')
         if self._forbidden(subpath, value):
           continue
         elif type(value) in [int, long, float] and len(name) < 500:
-          #TODO do the actual push
-          #self.graphite.log(prefix + self._sanitize(name), value)
+          #test
+          log.info("we're pushing'")
           self.log(prefix + self._sanitize(name), value)
 
 
@@ -122,7 +120,7 @@ class Pusher(object):
     if isinstance(rule, basestring) or hasattr(rule, '__call__'):
       self.rules.append((isWhitelist, rule))
     else:
-      raise TypeError('Graphite logging rules must be glob pattern or callable. Invalid: %r' % rule)
+      raise TypeError('Logging rules must be glob pattern or callable. Invalid: %r' % rule)
 
 
   def allow(self, rule):
@@ -146,11 +144,11 @@ class Pusher(object):
 
 
 class PeriodicPusher(Pusher):
-  """A thread that periodically pushes all stat values to Graphite."""
+  """A thread that periodically pushes all stat values."""
 
   def __init__(self, host, port, prefix, period=60):
-    """If prefix is given, it will be prepended to all Graphite
-    stats. If it is not given, then a prefix will be derived from the
+    """If prefix is given, it will be prepended to all stats.
+    If it is not given, then a prefix will be derived from the
     hostname."""
     Pusher.__init__(self, host, port, prefix)
 
@@ -163,8 +161,6 @@ class PeriodicPusher(Pusher):
 
   def run(self):
     """Loop forever, pushing out stats."""
-    #test
-    print "we made it here"
     while True:
       log.info('Pusher is sleeping for %d seconds', self.period)
       time.sleep(self.period)
