@@ -104,14 +104,12 @@ class Pusher(object):
         if hasattr(value, '__call__'):
           try:
             value = value()
-          except:                       # pylint: disable=W0702
+          except:
             value = None
             log.exception('Error when calling stat function for push')
         if self._forbidden(subpath, value):
           continue
         elif type(value) in [int, long, float] and len(name) < 500:
-          #test
-          log.info("we're pushing'")
           self.log(prefix + self._sanitize(name), value)
 
 
