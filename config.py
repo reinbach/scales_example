@@ -13,5 +13,5 @@ def log_init(name):
 
 # leading / needs to be removed
 STAT_RULES_ALLOWED = [
-  "web/success"
+    "web/*",
 ]
