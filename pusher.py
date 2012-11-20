@@ -48,7 +48,7 @@ class Pusher(object):
     return name.strip().replace(' ', '-').replace('.', '-')
 
 
-  def log(self, name, value):
+  def send(self, name, value):
     """Stubbed push call, meant to be overriden"""
     log.info("Pushing value: %s for %s" % (value, name))
 
@@ -110,7 +110,7 @@ class Pusher(object):
         if self._forbidden(subpath, value):
           continue
         elif type(value) in [int, long, float] and len(name) < 500:
-          self.log(prefix + self._sanitize(name), value)
+          self.send(prefix + self._sanitize(name), value)
 
 
   def _addRule(self, isWhitelist, rule):
@@ -171,6 +171,6 @@ class PeriodicPusher(Pusher):
         raise
 
 
-  def log(self, name, value):
+  def send(self, name, value):
     """send value"""
     log.info("Send %s to %s" % (value, name))
