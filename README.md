@@ -6,4 +6,13 @@ Mini-app making use of scales to track performance/activity of web application
 Objective
 ---------
 
-Looking to make scales and metric collection to be apart of the application
+Example of an application that generates metrics on itself, sends metrics to a process that collects the metrics and is able to display the metrics.
+
+Installation
+------------
+
+    python setup.py install
+    python server.py
+
+Point your browser at http://localhost:5000
+You should be able to click on the various buttons/links to generate some random metrics. Which will then display in the metrics section.
