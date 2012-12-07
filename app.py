@@ -15,8 +15,8 @@ def home():
     STATS.success += 1
     return render_template("index.html")
 
-@app.route("/work/")
-def work():
+@app.route("/time/")
+def time():
     with STATS.latency.time():
         x = 0
         for a in range(random.randint(10000, 1000000)):
