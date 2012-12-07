@@ -1,1 +1,24 @@
 {% extends "layout.html" %}
+
+{% block content %}
+    <div class="row">
+      <div class="span2">
+        <button class="btn" id="metric_time">Random Time</button>
+      </div>
+    </div>
+{% endblock content %}
+
+{% block page_js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#metric_time").popover({
+                trigger: 'hover',
+                title: 'Random Time Metric',
+                content: 'Run an action that takes a random amount of time to execute.'
+            });
+            $("#metric_time").click(function() {
+                $.ajax('{{ url_for('time') }}');
+            });
+        });
+    </script>
+{% endblock page_js %}

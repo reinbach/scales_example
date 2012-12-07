@@ -3,6 +3,8 @@
 <head>
   <title>Scales Example</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" media="screen" />
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </head>
 <body>
   <div class="container">
@@ -11,6 +13,10 @@
         <h1>Scales Example</h1>
       </div>
     </div>
+
+    {% block content %}{% endblock content %}
   </div>
+
+  {% block page_js %}{% endblock page_js %}
 </body>
 </html>
