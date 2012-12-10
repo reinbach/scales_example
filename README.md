@@ -1,7 +1,7 @@
 Scales Example
 ==============
 
-Mini-app making use of scales to track performance/activity of web application
+Mini-app making use of scales (https://github.com/Cue/scales) to track performance/activity of web application
 
 Objective
 ---------
