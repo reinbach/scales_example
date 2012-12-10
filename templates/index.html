@@ -2,8 +2,15 @@
 
 {% block content %}
     <div class="row">
-      <div class="span2">
-        <button class="btn" id="metric_time">Random Time</button>
+      <div class="span3">
+        <h3>1. Create Metrics</h3>
+        <p>Click the various buttons below to generate the relevant metric.</p>
+        <p><button class="btn" id="metric_counter">Counter</button></p>
+        <p><button class="btn" id="metric_time">Random Time</button></p>
+        <p><button class="btn" id="metric_metered">Metered</button></p>
+      </div>
+      <div class="span8 offset1">
+        <h3>2. See Metrics</h3>
       </div>
     </div>
 {% endblock content %}
@@ -12,13 +19,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#metric_time").popover({
-                trigger: 'hover',
-                title: 'Random Time Metric',
-                content: 'Run an action that takes a random amount of time to execute.'
+                trigger: "hover",
+                title: "Random Time Metric",
+                content: "Run an action that takes a random amount of time to execute."
             });
             $("#metric_time").click(function() {
-                $.ajax('{{ url_for('time') }}');
+                $.ajax("{{ url_for('metric_time') }}");
             });
+
         });
     </script>
 {% endblock page_js %}

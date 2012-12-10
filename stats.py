@@ -1,4 +1,5 @@
 from greplin import scales
+from greplin.scales.meter import MeterStat
 
 import config
 import pusher
@@ -8,6 +9,8 @@ STATS = scales.collection(
     scales.IntStat('errors'),
     scales.IntStat('success'),
     scales.PmfStat('latency'),
+    scales.IntStat('counter'),
+    MeterStat('hits'),
 )
 
 def main():
